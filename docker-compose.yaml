@@ -1,0 +1,37 @@
+services:
+  backend:
+    image: arsen00531/backend
+    container_name: backend
+    env_file:
+      - .env.production
+    build:
+      context: .
+    volumes:
+      - /app/backend/node_modules
+      - uploads:/app/backend/uploads
+    ports:
+      - ${NEST_PORT}:${NEST_PORT}
+    command: yarn start:prod
+    depends_on:
+      - postgres
+    restart: always
+  postgres:
+    container_name: backend-postgres
+    image: postgres:17-alpine
+    env_file:
+      - .env
+    environment:
+      PG_DATA: /var/lib/postgresql/data
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db:/app/backend/db
+    restart: always
+
+volumes:
+  pgdata:
+  uploads:
