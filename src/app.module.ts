@@ -7,7 +7,7 @@ import { getTypeormConfig } from './configs/typeorm.config';
 @Module({
   imports: [
     ConfigModule.forRoot(getNestConfig()), 
-    TypeOrmModule.forRoot(getTypeormConfig()), 
+    TypeOrmModule.forRootAsync(getTypeormConfig()), 
   ],
   controllers: [],
   providers: [],
