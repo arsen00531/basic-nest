@@ -10,7 +10,7 @@ async function bootstrap() {
   
   const port: number | string = app.get(ConfigService).getOrThrow('PORT');
   await app.listen(port, () => {
-    app.get(CustomLogger).log(`Server is running on port ${port}`);
+    console.log(`Server is running on port ${port}`);
   });
 }
 bootstrap();
